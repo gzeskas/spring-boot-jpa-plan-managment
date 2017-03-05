@@ -1,0 +1,98 @@
+databaseChangeLog:
+  - changeSet:
+      id: plan-service-1
+      author: gzeska
+      changes:
+        - createTable:
+            tableName: plan
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+                    unique : true
+        - createTable:
+            tableName: feature
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+                    unique : true
+        - createTable:
+            tableName: plan_features
+            columns:
+              - column:
+                  name: plan_id
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: feature_id
+                  type: int
+                  constraints:
+                    nullable: false
+  - changeSet:
+      id: plan-service-2
+      author: gzeska
+      changes:
+      - addUniqueConstraint:
+          columnNames: plan_id, feature_id
+          constraintName: plan_feature_unique_constraint
+          tableName: plan_features
+  - changeSet:
+      id: plan-service-3
+      author: gzeska
+      changes:
+        - insert:
+            tableName: plan
+            columns:
+              - column:
+                  name: id
+                  value: 1
+              - column:
+                  name: name
+                  value: FIRST
+        - insert:
+            tableName: plan
+            columns:
+              - column:
+                  name: id
+                  value: 2
+              - column:
+                  name: name
+                  value: SECOND
+        - insert:
+            tableName: plan
+            columns:
+              - column:
+                  name: id
+                  value: 3
+              - column:
+                  name: name
+                  value: THIRD
+        - insert:
+            tableName: plan
+            columns:
+              - column:
+                  name: id
+                  value: 4
+              - column:
+                  name: name
+                  value: FOURTH
